@@ -9,7 +9,7 @@ import { FcGoogle } from "react-icons/fc";
 
 import Link from "next/link";
 
-const login = () => {
+const Login = () => {
   const onsubmit =async (e) => {
     e.preventDefault();
 
@@ -119,4 +119,4 @@ const login = () => {
   );
 };
 
-export default login;
+export default Login;
