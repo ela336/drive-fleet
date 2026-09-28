@@ -1,23 +1,25 @@
-"use client"
+
+"use client";
+
+import { authClient } from "@/lib/auth-client";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 
 const Navbar = () => {
-  const isLoggedIn = false;
-  const { 
-        data: session, 
-        isPending, //loading state
-        error, //error object
-        refetch //refetch the session
-    } = authClient.useSession() 
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
+  const { data: session } = authClient.useSession();
+
+  const user = session?.user;
+
+ 
 
   return (
-    <nav className="bg-[#0a0908] border-b border-[#5e503f] px-6 text-[30px">
+    <nav className="bg-[#0a0908] border-b border-[#5e503f] px-6">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
 
-
+        {/* Logo */}
         <Link href="/" className="flex items-center">
           <Image
             src="/rent.png"
@@ -28,8 +30,8 @@ const Navbar = () => {
           />
         </Link>
 
-        
-        <div className="flex items-center gap-7">
+        {/* Navigation Links */}
+        <div className="flex items-center gap-7 text-lg">
           <Link
             href="/"
             className="text-[#eae0d5] hover:text-[#c6ac8f] transition"
@@ -59,43 +61,88 @@ const Navbar = () => {
           </Link>
         </div>
 
-        
+        {/* Right Side */}
         <div className="flex items-center gap-3">
-          {isLoggedIn ? (
+
+          {user ? (
             <div className="relative">
-              <button className="px-4 py-2 rounded-md bg-[#22333b] text-[#eae0d5] hover:bg-[#5e503f] transition">
-                Profile
+
+              {/* User Button */}
+              <button
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                className="flex items-center gap-2 px-3 py-2 rounded-md hover:bg-[#22333b] transition"
+              >
+
+               
+                <Image
+                  src={user.image || "/user.png"}
+                  alt={user.name || "User"}
+                  width={40}
+                  height={40}
+                  className="w-10 h-10 rounded-full object-cover border-2 border-[#c6ac8f]"
+                />
+
+                
+                <span className="text-[#eae0d5] text-base">
+                  {user.name}
+                </span>
+
+              
+                <span
+                  className={`text-[#c6ac8f] text-lg transition-transform duration-200 ${
+                    isDropdownOpen ? "rotate-180" : ""
+                  }`}
+                >
+                  ▼
+                </span>
+
               </button>
 
-              <div className="absolute right-0 mt-2 w-48 bg-[#22333b] border border-[#5e503f] rounded-md shadow-lg p-2">
-                <Link
-                  href="/add-car"
-                  className="block px-3 py-2 text-[#eae0d5] hover:bg-[#5e503f] rounded"
-                >
-                  Add Car
-                </Link>
+              {/* Dropdown */}
+              {isDropdownOpen && (
+                <div className="absolute right-0 mt-2 w-52 bg-[#22333b] border border-[#5e503f] rounded-md shadow-lg p-2 z-50">
 
-                <Link
-                  href="/my-bookings"
-                  className="block px-3 py-2 text-[#eae0d5] hover:bg-[#5e503f] rounded"
-                >
-                  My Bookings
-                </Link>
+                  <Link
+                    href="/Add-car"
+                    onClick={() => setIsDropdownOpen(false)}
+                    className="block px-3 py-2 text-[#eae0d5] hover:bg-[#5e503f] rounded"
+                  >
+                    Add Car
+                  </Link>
 
-                <Link
-                  href="/my-added-cars"
-                  className="block px-3 py-2 text-[#eae0d5] hover:bg-[#5e503f] rounded"
-                >
-                  My Added Cars
-                </Link>
+                  <Link
+                    href="/my-bookings"
+                    onClick={() => setIsDropdownOpen(false)}
+                    className="block px-3 py-2 text-[#eae0d5] hover:bg-[#5e503f] rounded"
+                  >
+                    My Bookings
+                  </Link>
 
-                <button className="w-full text-left px-3 py-2 text-[#c6ac8f] hover:bg-[#5e503f] rounded">
-                  Logout
-                </button>
-              </div>
+                  <Link
+                    href="/my-added-cars"
+                    onClick={() => setIsDropdownOpen(false)}
+                    className="block px-3 py-2 text-[#eae0d5] hover:bg-[#5e503f] rounded"
+                  >
+                    My Added Cars
+                  </Link>
+
+                  <button
+                    onClick={async () => {
+                      await authClient.signOut();
+                      setIsDropdownOpen(false);
+                    }}
+                    className="w-full text-left px-3 py-2 text-[#c6ac8f] hover:bg-[#5e503f] rounded"
+                  >
+                    Logout
+                  </button>
+
+                </div>
+              )}
+
             </div>
           ) : (
             <>
+             
               <Link
                 href="/login"
                 className="px-4 py-2 text-[#eae0d5] hover:text-[#c6ac8f] transition"
@@ -103,6 +150,7 @@ const Navbar = () => {
                 Login
               </Link>
 
+           
               <Link
                 href="/Register"
                 className="px-5 py-2 rounded-md bg-[#c6ac8f] text-[#0a0908] font-medium hover:bg-[#eae0d5] transition"
@@ -111,8 +159,8 @@ const Navbar = () => {
               </Link>
             </>
           )}
-        </div>
 
+        </div>
       </div>
     </nav>
   );

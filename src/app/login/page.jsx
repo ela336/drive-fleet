@@ -5,6 +5,7 @@ import { authClient } from "@/lib/auth-client";
 import { redirect } from "next/navigation";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { FcGoogle } from "react-icons/fc";
 
 import Link from "next/link";
 
@@ -105,12 +106,13 @@ const login = () => {
         </div>
 
         
-        <button
-          type="button"
-          className="textenter  w-full py-3 rounded-lg border border-[#c6ac8f] bg-[#fefaf2] text-[#22333b] font-semibold hover:bg-white transition"
-        >
-          Continue with Google
-        </button>
+       <button
+  type="button"
+  className="w-full py-3 rounded-lg border border-[#c6ac8f] bg-[#fefaf2] text-[#22333b] font-semibold hover:bg-white transition flex items-center justify-center gap-2"
+>
+  <FcGoogle className="text-xl" />
+  <span>Continue with Google</span>
+</button>
       </form>
        <ToastContainer />
     </div>
