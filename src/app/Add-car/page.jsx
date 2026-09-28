@@ -1,26 +1,42 @@
+
 "use client";
 
 import React from "react";
 import { motion } from "framer-motion";
 
 const Page = () => {
-  const onsubmit = async(e) => {
+  const onsubmit = async (e) => {
     e.preventDefault();
 
-    const formdata = new FormData(e.currentTarget);
+    const form = e.currentTarget;
+
+    const formdata = new FormData(form);
     const cardetails = Object.fromEntries(formdata.entries());
 
     console.log(cardetails);
 
-    const res = await fetch('http://localhost:5000/cardetails',{
-      method:'POST',
-      headers:{
-        'content-type':'application/json'
-      },
-      body:JSON.stringify(cardetails)
-    })
-    const data = res.json()
-    console.log(data)
+    try {
+      const res = await fetch("http://localhost:5000/cardetails", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(cardetails),
+      });
+
+      const data = await res.json();
+
+      console.log(data);
+
+      // Clear the form after successful submission
+      if (res.ok) {
+        form.reset();
+        alert("Car added successfully!");
+      }
+    } catch (error) {
+      console.log("Error:", error);
+      alert("Something went wrong!");
+    }
   };
 
   return (

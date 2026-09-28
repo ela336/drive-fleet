@@ -30,7 +30,7 @@ const Navbar = () => {
           </Link>
 
           <Link
-            href="/explore-cars"
+            href="/ExploreCars"
             className="text-[#eae0d5] hover:text-[#c6ac8f] transition"
           >
             Explore Cars
