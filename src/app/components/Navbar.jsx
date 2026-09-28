@@ -96,7 +96,7 @@ const Navbar = () => {
               </Link>
 
               <Link
-                href="/register"
+                href="/Register"
                 className="px-5 py-2 rounded-md bg-[#c6ac8f] text-[#0a0908] font-medium hover:bg-[#eae0d5] transition"
               >
                 Register
