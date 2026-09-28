@@ -1,9 +1,17 @@
+"use client"
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
 const Navbar = () => {
   const isLoggedIn = false;
+  const { 
+        data: session, 
+        isPending, //loading state
+        error, //error object
+        refetch //refetch the session
+    } = authClient.useSession() 
+
 
   return (
     <nav className="bg-[#0a0908] border-b border-[#5e503f] px-6 text-[30px">
