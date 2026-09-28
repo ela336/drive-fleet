@@ -2,6 +2,7 @@
 import React from "react";
 import Link from "next/link";
 
+
 const page = async () => {
   const res = await fetch("http://localhost:5000/cardetails", {
     cache: "no-store",
@@ -10,10 +11,11 @@ const page = async () => {
   const cars = await res.json();
 
   return (
-    <div className="min-h-screen bg-[#eae0d5] px-6 py-12">
-      <div className="mx-auto max-w-7xl">
 
-       
+    <div className="min-h-screen bg-[#eae0d5] px-6 py-12 ">
+      <div className="mx-auto max-w-7xl textenter">
+
+      
         <div className="mb-10 text-center">
           <h1 className="text-4xl font-bold text-[#0a0908] md:text-5xl">
             Explore Cars
@@ -24,6 +26,7 @@ const page = async () => {
             and choose a car that fits your needs.
           </p>
         </div>
+       
 
         {/* Cars */}
         {cars.length === 0 ? (
