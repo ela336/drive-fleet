@@ -9,6 +9,7 @@ const page = async () => {
   });
 
   const cars = await res.json();
+  
 
   return (
 

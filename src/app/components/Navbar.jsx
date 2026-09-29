@@ -144,7 +144,7 @@ const Navbar = () => {
             <>
              
               <Link
-                href="/Login"
+                href="/Loginn"
                 className="px-4 py-2 text-[#eae0d5] hover:text-[#c6ac8f] transition"
               >
                 Login

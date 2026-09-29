@@ -9,7 +9,7 @@ import { FcGoogle } from "react-icons/fc";
 
 import Link from "next/link";
 
-const Login = () => {
+const Loginn = () => {
   const onsubmit =async (e) => {
     e.preventDefault();
 
@@ -36,6 +36,11 @@ const Login = () => {
        
   };
 
+  const handlegooglesignin = async () => {
+  await authClient.signIn.social({
+    provider: "google",
+  });
+  }
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#eae0d5] px-4">
       <form
@@ -106,7 +111,7 @@ const Login = () => {
         </div>
 
         
-       <button
+       <button onClick={handlegooglesignin}
   type="button"
   className="w-full py-3 rounded-lg border border-[#c6ac8f] bg-[#fefaf2] text-[#22333b] font-semibold hover:bg-white transition flex items-center justify-center gap-2"
 >
@@ -119,4 +124,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Loginn;

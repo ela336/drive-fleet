@@ -36,6 +36,7 @@ const Details = async ({ params }) => {
   });
 
   const car = await res.json();
+  
 
   return (
     <div className="min-h-screen bg-[#0a0908] px-4 py-10 sm:px-6 lg:px-10">

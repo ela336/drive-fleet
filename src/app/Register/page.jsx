@@ -35,6 +35,11 @@ const Register = () => {
 
 
   };
+  const handlegooglesignin = async () => {
+  await authClient.signIn.social({
+    provider: "google",
+  });
+}
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#eae0d5] px-4">
@@ -117,7 +122,7 @@ const Register = () => {
         </button>
 
         
-        <button
+        <button onClick={handlegooglesignin}
   type="button"
   className="w-full  py-3 rounded-lg border border-[#c6ac8f] bg-[#fefaf2] text-[#22333b] font-semibold hover:bg-white transition flex items-center justify-center gap-2"
 >
@@ -132,3 +137,4 @@ const Register = () => {
 };
 
 export default Register;
+
