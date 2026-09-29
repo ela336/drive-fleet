@@ -1,6 +1,7 @@
 
 "use client";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { authClient } from "@/lib/auth-client";
 import React, { useState } from "react";
 
@@ -11,7 +12,7 @@ const BookModal = ({ car }) => {
   
     const user = session?.user;
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
 
     const formData = new FormData(e.currentTarget);
@@ -19,14 +20,31 @@ const BookModal = ({ car }) => {
     const bookingD = Object.fromEntries(formData.entries());
   
     const bookingdata ={
+      userid:user?.id,
+      username:user?.name,
+      carid:car._id,
       carName : car.carName,
       carimage:car.imageUrl,
       bookingDate : new Date(bookingD.bookingDate),
       driver:bookingD.driverNeeded,
-      note:bookingD.specialNote
+      note:bookingD.specialNote,
+      price:car.dailyRentPrice,
+      pickloc: car.pickupLocation
 
     }
-    console.log(bookingdata);
+    
+     const res = await fetch("http://localhost:5000/bookings", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(bookingdata),
+      });
+
+      const data = res.json();
+      console.log(data);
+      
+    toast.success("Booking Confirmed");
 
 
    
@@ -153,6 +171,7 @@ const BookModal = ({ car }) => {
                 </button>
 
               </form>
+              <ToastContainer />
             </div>
           </div>
         </div>

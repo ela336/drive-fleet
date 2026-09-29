@@ -54,7 +54,7 @@ const Navbar = () => {
           </Link>
 
           <Link
-            href="/my-bookings"
+            href="/Mybookings"
             className="text-[#eae0d5] hover:text-[#c6ac8f] transition"
           >
             My Bookings
@@ -111,7 +111,7 @@ const Navbar = () => {
                   </Link>
 
                   <Link
-                    href="/my-bookings"
+                    href="/Mybookings"
                     onClick={() => setIsDropdownOpen(false)}
                     className="block px-3 py-2 text-[#eae0d5] hover:bg-[#5e503f] rounded"
                   >
