@@ -3,16 +3,30 @@
 
 import React from "react";
 import { motion } from "framer-motion";
+import { authClient } from "@/lib/auth-client";
+
 
 const Page = () => {
+     
+
+const { data: session } = authClient.useSession();
+  
+    const user = session?.user;
+    
+
   const onsubmit = async (e) => {
     e.preventDefault();
 
     const form = e.currentTarget;
 
     const formdata = new FormData(form);
-    const cardetails = Object.fromEntries(formdata.entries());
+    const cardetail = Object.fromEntries(formdata.entries());
 
+    const cardetails ={
+      ...cardetail,
+      userid:user?.id
+    }
+   
     console.log(cardetails);
 
     try {
@@ -28,7 +42,7 @@ const Page = () => {
 
       console.log(data);
 
-      // Clear the form after successful submission
+      
       if (res.ok) {
         form.reset();
         alert("Car added successfully!");
@@ -47,7 +61,7 @@ const Page = () => {
         transition={{ duration: 0.7, ease: "easeOut" }}
         className="max-w-2xl mx-auto"
       >
-        {/* Heading */}
+       
         <div className="text-center mb-6">
           <p className="text-[#5e503f] uppercase tracking-widest text-xs font-semibold mb-2">
             DriveFleet
@@ -62,12 +76,12 @@ const Page = () => {
           </p>
         </div>
 
-        {/* Form */}
+       
         <form
           className="bg-white rounded-xl p-5 md:p-6 shadow-md border border-[#c6ac8f]"
           onSubmit={onsubmit}
         >
-          {/* Car Name */}
+        
           <div className="mb-4">
             <label className="block text-[#0a0908] text-sm font-bold mb-1.5">
               Car Name
@@ -81,9 +95,9 @@ const Page = () => {
             />
           </div>
 
-          {/* Price + Type */}
+          
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {/* Daily Rent Price */}
+            
             <div>
               <label className="block text-[#0a0908] text-sm font-bold mb-1.5">
                 Daily Rent Price
@@ -97,7 +111,7 @@ const Page = () => {
               />
             </div>
 
-            {/* Car Type */}
+            
             <div>
               <label className="block text-[#0a0908] text-sm font-bold mb-1.5">
                 Car Type
@@ -118,7 +132,7 @@ const Page = () => {
             </div>
           </div>
 
-          {/* Image URL */}
+          
           <div className="mt-4">
             <label className="block text-[#0a0908] text-sm font-bold mb-1.5">
               Image URL
@@ -132,9 +146,9 @@ const Page = () => {
             />
           </div>
 
-          {/* Seat Capacity + Pickup Location */}
+          
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-            {/* Seat Capacity */}
+            
             <div>
               <label className="block text-[#0a0908] text-sm font-bold mb-1.5">
                 Seat Capacity
@@ -149,7 +163,7 @@ const Page = () => {
               />
             </div>
 
-            {/* Pickup Location */}
+            
             <div>
               <label className="block text-[#0a0908] text-sm font-bold mb-1.5">
                 Pickup Location
@@ -164,7 +178,7 @@ const Page = () => {
             </div>
           </div>
 
-          {/* Description */}
+         
           <div className="mt-4">
             <label className="block text-[#0a0908] text-sm font-bold mb-1.5">
               Description
@@ -178,7 +192,7 @@ const Page = () => {
             ></textarea>
           </div>
 
-          {/* Availability Status */}
+         
           <div className="mt-4">
             <label className="block text-[#0a0908] text-sm font-bold mb-1.5">
               Availability Status
@@ -194,7 +208,7 @@ const Page = () => {
             </select>
           </div>
 
-          {/* Submit Button */}
+         
           <motion.button
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.97 }}

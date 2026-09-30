@@ -1,53 +1,59 @@
-
 "use client";
+
 import React from "react";
 import { authClient } from "@/lib/auth-client";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FcGoogle } from "react-icons/fc";
-
 import Link from "next/link";
 
 const Loginn = () => {
-  const onsubmit =async (e) => {
+  const router = useRouter();
+
+  const onsubmit = async (e) => {
     e.preventDefault();
 
     const formdata = new FormData(e.currentTarget);
     const user = Object.fromEntries(formdata.entries());
 
     console.log(user);
-     const { data, error } = await authClient.signIn.email({
-            email : user.email,
-            password : user.password,
-            name :user.name,
-            image :user.image
-          
-        })
-       
-        if(data)
-        {
-            redirect('/');
-        }
-        if(error)
-        {
-            toast.error(`${error.message}`);
-        }
-       
+
+    const { data, error } = await authClient.signIn.email({
+      email: user.email,
+      password: user.password,
+    });
+
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
+
+    if (data) {
+      toast.success("Login successful!");
+
+      setTimeout(() => {
+        router.push("/");
+      }, 1000);
+    }
   };
 
   const handlegooglesignin = async () => {
-  await authClient.signIn.social({
-    provider: "google",
-  });
-  }
+    const { error } = await authClient.signIn.social({
+      provider: "google",
+    });
+
+    if (error) {
+      toast.error(error.message);
+    }
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#eae0d5] px-4">
       <form
         onSubmit={onsubmit}
         className="w-full max-w-md bg-[#f8ecd2] p-8 rounded-2xl shadow-lg"
       >
-       
         <h1 className="text-3xl font-bold text-center text-[#22333b] mb-6">
           Login
         </h1>
@@ -63,7 +69,7 @@ const Loginn = () => {
             name="email"
             placeholder="Enter your email"
             required
-            className="textenter w-full px-4 py-3 rounded-lg border border-[#c6ac8f] bg-[#fefaf2] outline-none focus:ring-2 focus:ring-[#5e503f]"
+            className="w-full px-4 py-3 rounded-lg border border-[#c6ac8f] bg-[#fefaf2] outline-none focus:ring-2 focus:ring-[#5e503f]"
           />
         </div>
 
@@ -78,14 +84,14 @@ const Loginn = () => {
             name="password"
             placeholder="Enter your password"
             required
-            className="textenter  w-full px-4 py-3 rounded-lg border border-[#c6ac8f] bg-[#fefaf2] outline-none focus:ring-2 focus:ring-[#5e503f]"
+            className="w-full px-4 py-3 rounded-lg border border-[#c6ac8f] bg-[#fefaf2] outline-none focus:ring-2 focus:ring-[#5e503f]"
           />
         </div>
 
         {/* Login Button */}
         <button
           type="submit"
-          className=" textenter  mt-4 w-full bg-[#5e503f] text-white py-3 rounded-lg font-semibold hover:bg-[#22333b] transition"
+          className="mt-4 w-full bg-[#5e503f] text-white py-3 rounded-lg font-semibold hover:bg-[#22333b] transition"
         >
           Login
         </button>
@@ -95,7 +101,7 @@ const Loginn = () => {
           Don't have an account?{" "}
           <Link
             href="/register"
-            className="textenter font-semibold text-[#22333b] hover:underline"
+            className="font-semibold text-[#22333b] hover:underline"
           >
             Register
           </Link>
@@ -110,16 +116,18 @@ const Loginn = () => {
           <div className="h-px bg-[#c6ac8f] flex-1"></div>
         </div>
 
-        
-       <button onClick={handlegooglesignin}
-  type="button"
-  className="w-full py-3 rounded-lg border border-[#c6ac8f] bg-[#fefaf2] text-[#22333b] font-semibold hover:bg-white transition flex items-center justify-center gap-2"
->
-  <FcGoogle className="text-xl" />
-  <span>Continue with Google</span>
-</button>
+        {/* Google Login */}
+        <button
+          onClick={handlegooglesignin}
+          type="button"
+          className="w-full py-3 rounded-lg border border-[#c6ac8f] bg-[#fefaf2] text-[#22333b] font-semibold hover:bg-white transition flex items-center justify-center gap-2"
+        >
+          <FcGoogle className="text-xl" />
+          <span>Continue with Google</span>
+        </button>
       </form>
-       <ToastContainer />
+
+      <ToastContainer />
     </div>
   );
 };

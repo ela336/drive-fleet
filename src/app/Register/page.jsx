@@ -35,7 +35,7 @@ const Register = () => {
 
 
   };
-  const handlegooglesignin = async () => {
+  const handlegooglesignup = async () => {
   await authClient.signIn.social({
     provider: "google",
   });
@@ -122,7 +122,7 @@ const Register = () => {
         </button>
 
         
-        <button onClick={handlegooglesignin}
+        <button onClick={handlegooglesignup}
   type="button"
   className="w-full  py-3 rounded-lg border border-[#c6ac8f] bg-[#fefaf2] text-[#22333b] font-semibold hover:bg-white transition flex items-center justify-center gap-2"
 >
