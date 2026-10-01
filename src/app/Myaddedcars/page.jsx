@@ -3,7 +3,8 @@ import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import React from "react";
 import Link from "next/link";
-import Editmodal from "../components/Editmodal";
+
+import Delete from "../components/Delete";
 
 const Myaddedcars = async () => {
   const session = await auth.api.getSession({
@@ -164,17 +165,12 @@ const Myaddedcars = async () => {
                 <div className="mt-6 flex flex-wrap gap-3">
                 
                  
-                  <Link href={`/Myaddedcars/${car._id}`} className=" rounded-lg bg-[#22333b] px-6 py-4 font-semibold text-[#eae0d5] transition duration-300 hover:bg-[#0a0908]">
+                  <Link href={`/Myaddedcars/${car._id}`} className="  bg-[#22333b] px-6 py-2.5 btn font-semibold text-[#eae0d5] transition duration-300 hover:bg-[#0a0908]">
                    <button>Edit </button>
                   </Link>
 
-
-                  <button
-                    type="button"
-                    className="rounded-lg border border-red-400 px-6 py-2.5 text-sm font-semibold text-red-600 transition hover:bg-red-50"
-                  >
-                    Delete
-                  </button>
+                  <Delete car={car}></Delete>
+                 
                 </div>
               </div>
                

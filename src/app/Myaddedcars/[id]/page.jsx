@@ -1,34 +1,101 @@
+"use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const Editpage = async ({ params }) => {
-  const { id } = await params;
+import { useParams, useRouter } from "next/navigation";
 
-  const res = await fetch(`http://localhost:5000/cardetails/${id}`);
-  const car = await res.json();
+const Editpage = () => {
+  const { id } = useParams();
+
+  const [car, setCar] = useState(null);
+
+  
+  useEffect(() => {
+    const fetchCar = async () => {
+      try {
+        const res = await fetch(
+          `http://localhost:5000/cardetails/${id}`
+        );
+
+        const data = await res.json();
+
+        setCar(data);
+      } catch (error) {
+        console.log(error);
+        toast.error("Failed to fetch car data");
+      }
+    };
+
+    if (id) {
+      fetchCar();
+    }
+  }, [id]);
+
+  const router = useRouter();
+  const onsubmit = async (e) => {
+    e.preventDefault();
+
+    const form = e.currentTarget;
+
+    const formdata = new FormData(form);
+
+    const editeddata = Object.fromEntries(formdata.entries());
+
+   
+    toast.success("Car information updated successfully!");
+
+    router.push("/Myaddedcars");
+
+     try {
+      const res = await fetch(`http://localhost:5000/cardetails/${id}`, {
+        method: "PATCH",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(editeddata),
+      });
+    } catch (error) {
+      
+      toast.error("Failed to update car information");
+    }
+  };
+
+  
+  if (!car) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-[#eae0d5]">
+        <p className="text-xl font-semibold">
+          Loading...
+        </p>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[#eae0d5] px-4 py-10">
-      <div className="mx-auto max-w-xl rounded-2xl bg-[#f8f5f0] shadow-xl textenter ">
 
-       
-        <div className="text-center  border-[#c6ac8f] p-6 ">
+      <div className="mx-auto max-w-xl rounded-2xl bg-[#f8f5f0] shadow-xl">
+
+        <div className="text-center border-[#c6ac8f] p-6">
           <h2 className="text-2xl font-bold text-[#0a0908]">
             Edit Car Information
           </h2>
 
-          <p className=" text-sm text-[#5e503f]">
+          <p className="text-sm text-[#5e503f]">
             Update your car details
           </p>
         </div>
 
-        {/* Form */}
         <div className="p-5">
-          <form className="space-y-5">
 
-            {/* Car Type */}
+          <form
+            className="space-y-5"
+            onSubmit={onsubmit}
+          >
+
+            
             <div>
               <label className="mb-2 block font-semibold text-[#0a0908]">
                 Car Type
@@ -51,7 +118,7 @@ const Editpage = async ({ params }) => {
               </select>
             </div>
 
-              {/* Availability */}
+          
             <div>
               <label className="mb-2 block font-semibold text-[#0a0908]">
                 Availability
@@ -68,8 +135,7 @@ const Editpage = async ({ params }) => {
               </select>
             </div>
 
-
-            {/* Price */}
+            
             <div>
               <label className="mb-2 block font-semibold text-[#0a0908]">
                 Price
@@ -84,6 +150,7 @@ const Editpage = async ({ params }) => {
                 className="w-full rounded-lg border border-[#c6ac8f] bg-white px-4 py-3 outline-none focus:border-[#22333b]"
               />
             </div>
+
             
             <div>
               <label className="mb-2 block font-semibold text-[#0a0908]">
@@ -100,7 +167,7 @@ const Editpage = async ({ params }) => {
               />
             </div>
 
-            
+           
             <div>
               <label className="mb-2 block font-semibold text-[#0a0908]">
                 Pickup Location
@@ -132,14 +199,7 @@ const Editpage = async ({ params }) => {
               />
             </div>
 
-          
-
-           
-
             
-            
-
-            {/* Submit */}
             <button
               type="submit"
               className="w-full rounded-xl bg-[#22333b] px-6 py-4 font-semibold text-[#eae0d5] transition duration-300 hover:bg-[#0a0908]"
@@ -150,6 +210,7 @@ const Editpage = async ({ params }) => {
           </form>
 
           <ToastContainer />
+
         </div>
       </div>
     </div>
