@@ -53,7 +53,7 @@ const Mybookings = async () => {
           </h2>
 
           <p className="mt-2 text-[#5e503f]">
-            You haven't booked any car yet.
+            You have not booked any car yet.
           </p>
         </div>
       ) : (
@@ -62,7 +62,7 @@ const Mybookings = async () => {
           {bookings.map((booking) => (
             <div
               key={booking._id}
-              className="flex flex-col overflow-hidden rounded-2xl bg-[#f8f1e8] shadow-md transition duration-300 hover:-translate-y-1 hover:shadow-xl md:flex-row"
+              className="flex flex-col textenter overflow-hidden rounded-2xl bg-[#f8f1e8] shadow-md transition duration-300 hover:-translate-y-1 hover:shadow-xl md:flex-row"
             >
               
               <div className="h-64 w-full shrink-0 md:h-auto md:w-72">

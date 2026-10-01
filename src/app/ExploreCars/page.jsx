@@ -56,10 +56,10 @@ const page = async () => {
                   />
                 </div>
 
-                {/* Hover Overlay */}
+             
                 <div className="absolute inset-0 z-10 flex items-center justify-center bg-black/0 transition-all duration-300 group-hover:bg-black/50">
 
-                  {/* View Details Button */}
+                 
                   <Link
                     href={`/ExploreCars/${car._id}`}
                     className="translate-y-4 rounded-lg bg-[#eae0d5] px-6 py-3 font-semibold text-[#0a0908] opacity-0 shadow-lg transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 hover:bg-[#c6ac8f]"

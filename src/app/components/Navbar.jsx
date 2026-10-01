@@ -61,13 +61,13 @@ const Navbar = () => {
           </Link>
         </div>
 
-        {/* Right Side */}
+       
         <div className="flex items-center gap-3">
 
           {user ? (
             <div className="relative">
 
-              {/* User Button */}
+             
               <button
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                 className="flex items-center gap-2 px-3 py-2 rounded-md hover:bg-[#22333b] transition"
@@ -98,7 +98,7 @@ const Navbar = () => {
 
               </button>
 
-              {/* Dropdown */}
+            
               {isDropdownOpen && (
                 <div className="absolute right-0 mt-2 w-52 bg-[#22333b] border border-[#5e503f] rounded-md shadow-lg p-2 z-50">
 
@@ -119,7 +119,7 @@ const Navbar = () => {
                   </Link>
 
                   <Link
-                    href="/my-added-cars"
+                    href="/Myaddedcars"
                     onClick={() => setIsDropdownOpen(false)}
                     className="block px-3 py-2 text-[#eae0d5] hover:bg-[#5e503f] rounded"
                   >

@@ -124,17 +124,17 @@ const Details = async ({ params }) => {
 
             </div>
 
-            {/* RIGHT: PRICE + DESCRIPTION + CTA */}
+           
             <div className="order-3 flex flex-col justify-center gap-4 p-6 sm:p-8 lg:p-10">
 
-              {/* Daily Price */}
+              
               <SpecCard
                 icon={ICONS.price}
                 label="Daily Rate"
                 value={`৳${car.dailyRentPrice}`}
               />
 
-              {/* Description */}
+              
               <div className="rounded-2xl bg-[#1c1c1e] p-4">
                 <p className="text-xs text-[#8a8a8e]">
                   Description
@@ -145,7 +145,7 @@ const Details = async ({ params }) => {
                 </p>
               </div>
 
-              {/* Booking Button */}
+              
               {car.availability === "available" ? (
                 <BookModal car={car} />
               ) : (
