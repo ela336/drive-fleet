@@ -4,11 +4,13 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { authClient } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 
 const Page = () => {
      
-
+const router = useRouter();
 const { data: session } = authClient.useSession();
   
     const user = session?.user;
@@ -27,30 +29,35 @@ const { data: session } = authClient.useSession();
       userid:user?.id
     }
    
-    console.log(cardetails);
+    
+
+    const {data:tokendata} =await authClient.token();
 
     try {
       const res = await fetch("http://localhost:5000/cardetails", {
         method: "POST",
         headers: {
           "content-type": "application/json",
+          Authorization: `Bearer ${tokendata.token}`
         },
         body: JSON.stringify(cardetails),
       });
 
       const data = await res.json();
 
-      console.log(data);
+      
 
       
       if (res.ok) {
         form.reset();
-        alert("Car added successfully!");
+        toast.success("Car added successfully!");
+         router.push("/Myaddedcars");
       }
     } catch (error) {
       console.log("Error:", error);
-      alert("Something went wrong!");
+      toast.error("Something went wrong!");
     }
+   
   };
 
   return (
@@ -219,6 +226,7 @@ const { data: session } = authClient.useSession();
           </motion.button>
         </form>
       </motion.div>
+      <toastContainer />
     </div>
   );
 };

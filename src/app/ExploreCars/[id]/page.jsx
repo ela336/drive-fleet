@@ -7,6 +7,8 @@ import {
   FaLocationDot,
   FaMoneyBillWave,
 } from "react-icons/fa6";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
 const ICONS = {
   type: FaCarSide,
@@ -31,8 +33,16 @@ const SpecCard = ({ icon: Icon, label, value }) => (
 const Details = async ({ params }) => {
   const { id } = await params;
 
+  const {token}= await auth.api.getToken(
+    {
+      headers:await headers()
+    }
+  )
+
   const res = await fetch(`http://localhost:5000/cardetails/${id}`, {
-    cache: "no-store",
+    headers:{
+      authorization:`Bearer ${token}`
+    }
   });
 
   const car = await res.json();

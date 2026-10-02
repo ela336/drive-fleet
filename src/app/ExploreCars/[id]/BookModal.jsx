@@ -4,16 +4,18 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { authClient } from "@/lib/auth-client";
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const BookModal = ({ car }) => {
-  console.log(car);
+  const router = useRouter();
+  
   const [isOpen, setIsOpen] = useState(false);
    const { data: session } = authClient.useSession();
   
     const user = session?.user;
 
   const handleSubmit = async(e) => {
-    e.preventDefault();
+   const form = e.preventDefault();
 
     const formData = new FormData(e.currentTarget);
 
@@ -33,18 +35,23 @@ const BookModal = ({ car }) => {
 
     }
     
+    const {data:tokendata} =await authClient.token();
      const res = await fetch("http://localhost:5000/bookings", {
         method: "POST",
         headers: {
           "content-type": "application/json",
+          Authorization: `Bearer ${tokendata.token}`
         },
         body: JSON.stringify(bookingdata),
       });
 
-      const data = res.json();
-      console.log(data);
+      const data =await res.json();
+     
       
     toast.success("Booking Confirmed");
+
+    
+    router.push("/Mybookings");
 
 
    

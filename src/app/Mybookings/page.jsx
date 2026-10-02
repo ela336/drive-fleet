@@ -8,6 +8,8 @@ const Mybookings = async () => {
     headers: await headers(),
   });
 
+  
+
   const user = session?.user;
  
 
@@ -20,9 +22,15 @@ const Mybookings = async () => {
       </div>
     );
   }
-
+ const {token}= await auth.api.getToken(
+    {
+      headers:await headers()
+    }
+  )
   const res = await fetch(`http://localhost:5000/bookings/${user.id}`, {
-    cache: "no-store",
+     headers:{
+          authorization:`Bearer ${token}`
+        }
   });
 
   const bookings = await res.json();
@@ -31,6 +39,8 @@ const Mybookings = async () => {
    bookings.forEach(booking => {
        sum= sum+Number(booking.price);
    });
+
+   
 
   return (
     <div className="min-h-screen bg-[#eae0d5] px-4 py-10 sm:px-6 lg:px-10">

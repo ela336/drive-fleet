@@ -4,6 +4,7 @@ import { headers } from "next/headers";
 import React from "react";
 import Link from "next/link";
 
+
 import Delete from "../components/Delete";
 
 const Myaddedcars = async () => {
@@ -22,11 +23,19 @@ const Myaddedcars = async () => {
       </div>
     );
   }
-
-  const res = await fetch(`http://localhost:5000/myadded/${user?.id}`);
+ const {token}= await auth.api.getToken(
+    {
+      headers:await headers()
+    }
+  )
+  const res = await fetch(`http://localhost:5000/myadded/${user?.id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
 
   const cars = await res.json();
-  console.log(cars);
+  
 
   return (
     <div className="min-h-screen bg-[#eae0d5] px-4 py-10 sm:px-6 lg:px-10">
@@ -57,7 +66,7 @@ const Myaddedcars = async () => {
           </p>
 
           <Link
-            href="/add-car"
+            href="/Add-car"
             className="mt-6 inline-block rounded-lg bg-[#22333b] px-6 py-3 text-sm font-semibold text-[#eae0d5] transition hover:bg-[#0a0908]"
           >
             Add Your First Car

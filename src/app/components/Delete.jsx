@@ -1,21 +1,24 @@
 
 "use client"
-import { redirect } from 'next/dist/server/api-utils';
+import { authClient } from '@/lib/auth-client';
+import { useRouter } from "next/navigation";
 import React from 'react';
 
 const Delete = ({car}) => {
+  const router = useRouter();
 
-   
     const handleDelete = async () =>{
+      const {data:tokendata} =await authClient.token();
         const res = await fetch(`http://localhost:5000/cardetails/${car._id}`, {
         method: "DELETE",
         headers: {
           "content-type": "application/json",
+          Authorization: `Bearer ${tokendata.token}`
         }
       });
 
       const data = await res.json();
-      redirect("/Myaddedcars");
+      router.push("/Myaddedcars");
     };
     return (
         <div>
