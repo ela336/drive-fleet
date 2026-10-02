@@ -1,36 +1,42 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# DriveFleet 🚗
 
-## Getting Started
+DriveFleet is a modern and responsive car rental platform that makes it easy for users to explore cars, view details, make bookings, and manage their listed vehicles.
 
-First, run the development server:
+## 🌐 Live Website
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+**Live Site:** https://drive-fleet-self.vercel.app/
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## ✨ Features
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+- 🚗 **Explore Cars** — Browse available cars and view detailed information about each vehicle.
+- 🔐 **User Authentication** — Users can register and log in using email/password or Google authentication.
+- ➕ **Add Cars** — Authenticated users can add their own cars to the platform.
+- ✏️ **Update Car Information** — Users can edit the information of cars they have added.
+- 🗑️ **Delete Cars** — Users can remove their own car listings from the platform.
+- 📅 **Car Booking** — Users can book available cars for their trips.
+- 📋 **My Bookings** — Users can view and manage their booking information.
+- 🚘 **My Added Cars** — Users can view all cars they have added to the platform.
+- 📱 **Responsive Design** — The website is designed to work across desktop, tablet, and mobile devices.
+- 🔒 **Protected API Routes** — Backend API endpoints use authentication and token verification for protected operations.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🛠️ Technologies Used
 
-## Learn More
+- Next.js
+- React
+- Tailwind CSS
+- DaisyUI
+- Express.js
+- MongoDB
+- Better Auth
+- JWT
+- Vercel
 
-To learn more about Next.js, take a look at the following resources:
+## 📌 Project Purpose
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+DriveFleet provides a simple and convenient platform for finding, renting, and managing cars while giving car owners the ability to list and manage their vehicles.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🚀 Live Demo
 
-## Deploy on Vercel
+Visit DriveFleet:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+https://drive-fleet-self.vercel.app/

@@ -1,21 +1,12 @@
 
 import React from "react";
 import Link from "next/link";
-import { auth } from "@/lib/auth";
-import { headers } from "next/headers";
+
 
 
 const page = async () => {
-   const {token}= await auth.api.getToken(
-    {
-      headers:await headers()
-    }
-  )
-  const res = await fetch("http://localhost:5000/cardetails", {
-     headers:{
-          authorization:`Bearer ${token}`
-        }
-  });
+  
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/cardetails`);
 
   const cars = await res.json();
   

@@ -23,9 +23,10 @@ const Register = () => {
       
     })
     console.log({data,error});
+    
     if(data)
     {
-        redirect('/login');
+        redirect('/Loginn');
     }
     if(error)
     {
@@ -90,7 +91,7 @@ const Register = () => {
 
           <input
             type="url"
-            name="photo"
+            name="image"
             placeholder="Enter your photo URL"
             required
             className="w-full px-4 py-3 rounded-lg border border-[#c6ac8f] bg-[#fefaf2] outline-none focus:ring-2 focus:ring-[#5e503f]"
@@ -110,6 +111,7 @@ const Register = () => {
             required
             className="w-full px-4 py-3 rounded-lg border border-[#c6ac8f] bg-[#fefaf2] outline-none focus:ring-2 focus:ring-[#5e503f]"
           />
+          
         
         </div>
 

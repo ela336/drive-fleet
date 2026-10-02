@@ -5,7 +5,8 @@ import React from "react";
 import { motion } from "framer-motion";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 
 const Page = () => {
@@ -34,7 +35,7 @@ const { data: session } = authClient.useSession();
     const {data:tokendata} =await authClient.token();
 
     try {
-      const res = await fetch("http://localhost:5000/cardetails", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/cardetails`, {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -225,8 +226,9 @@ const { data: session } = authClient.useSession();
             Add Car
           </motion.button>
         </form>
+         <ToastContainer />
       </motion.div>
-      <toastContainer />
+     
     </div>
   );
 };

@@ -39,7 +39,7 @@ const Details = async ({ params }) => {
     }
   )
 
-  const res = await fetch(`http://localhost:5000/cardetails/${id}`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/cardetails/${id}`, {
     headers:{
       authorization:`Bearer ${token}`
     }
